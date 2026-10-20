@@ -1,0 +1,561 @@
+{
+  "info": {
+    "_postman_id": "7b2c3f76-5e53-4f7e-bbc5-worbyreprest",
+    "name": "WorbyRepRest API",
+    "description": "Collection gerada a partir das rotas Horse do WorbyRepRest.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "noauth"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": []
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.test('HTTP status menor que 500', function () {",
+          "  pm.expect(pm.response.code).to.be.below(500);",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://plasfan.ddns.com.br:9004",
+      "type": "string"
+    },
+    {
+      "key": "codRepresentante",
+      "value": "1228",
+      "type": "string"
+    },
+    {
+      "key": "mes",
+      "value": "06/2026",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Sistema",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Tabelas - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tables",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tables"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Tabelas - POST",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tables",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tables"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Autenticacao",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"AYRTON\",\n  \"senha\": \"1234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sincronizacao",
+      "item": [
+        {
+          "name": "Contar Registros",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"table\": \"cliente\",\n  \"codRepresentante\": \"{{codRepresentante}}\",\n  \"limit\": 300,\n  \"offset\": 0,\n  \"dataUltSincronizacao\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/count",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "count"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar Registros",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"table\": \"cliente\",\n  \"codRepresentante\": \"{{codRepresentante}}\",\n  \"limit\": 300,\n  \"offset\": 0,\n  \"dataUltSincronizacao\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/list",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "list"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar Itens de Vendas2 por Numdocs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"table\": \"vendas2\",\n  \"codRepresentante\": \"{{codRepresentante}}\",\n  \"limit\": 300,\n  \"offset\": 0,\n  \"numdocs\": [158149, 158142]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/list",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "list"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sync All",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codRepresentante\": \"{{codRepresentante}}\",\n  \"tables\": [\n    \"representante\",\n    \"cliente\",\n    \"vendas1\",\n    \"vendas2\",\n    \"produto\",\n    \"subcategoria\",\n    \"fop\",\n    \"prazo\",\n    \"cidades\",\n    \"produto_representante\",\n    \"grupo_representante\",\n    \"produto_representante_inativos\",\n    \"prazo_representante\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sync_all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sync_all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sync Script",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codRepresentante\": \"{{codRepresentante}}\",\n  \"tables\": [\n    \"representante\",\n    \"cliente\",\n    \"produto\",\n    \"subcategoria\",\n    \"fop\",\n    \"prazo\",\n    \"cidades\",\n    \"produto_representante\",\n    \"grupo_representante\",\n    \"produto_representante_inativos\",\n    \"prazo_representante\"\n  ],\n  \"schema\": {},\n  \"dataUltSincronizacao\": {}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sync_script",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sync_script"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar Item por ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"table\": \"cliente\",\n  \"id\": \"15276\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/item",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "item"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Meses Dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codRepresentante\": {{codRepresentante}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/meses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "meses"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Meta Dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codRepresentante\": {{codRepresentante}},\n  \"mes\": \"{{mes}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/meta",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "meta"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pedidos Faturados Dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codRepresentante\": {{codRepresentante}},\n  \"mes\": \"{{mes}}\",\n  \"status\": \"TODOS\",\n  \"diaInicial\": 1,\n  \"diaFinal\": 31,\n  \"busca\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/pedidos_faturados",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "pedidos_faturados"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Buscar Cliente por Documento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documento\": \"95811790000100\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cliente/documento",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cliente",
+                "documento"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upsert Cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": 15276,\n  \"nome\": \"CLIENTE TESTE\",\n  \"cidade\": \"INDAIAL\",\n  \"uf\": \"SC\",\n  \"cnpj\": \"\",\n  \"latitude\": -26.920610,\n  \"longitude\": -48.688860\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cliente",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cliente"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Geolocalizacao",
+      "item": [
+        {
+          "name": "Registrar Localizacao Representante",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cod_representante\": {{codRepresentante}},\n  \"datahora\": \"2026-06-15 14:00:00\",\n  \"velocidade\": 0,\n  \"latitude\": -26.920610,\n  \"longitude\": -48.688860\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/geolocalizacao",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "geolocalizacao"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar Visita Cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cod_cliente\": 15276,\n  \"data\": \"2026-06-15\",\n  \"vendeu\": \"N\",\n  \"enviado\": \"S\",\n  \"motivo_n_venda\": \"Cliente sem interesse no momento\",\n  \"valor_pedido\": 0,\n  \"status_visita\": \"Relacionamento\",\n  \"datahora\": \"2026-06-15 14:00:00\",\n  \"cod_representante\": {{codRepresentante}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cliente_visita",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cliente_visita"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pedidos",
+      "item": [
+        {
+          "name": "Enviar Pedido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendas1\": {\n    \"cod_cliente\": 15276,\n    \"cod_representante\": {{codRepresentante}},\n    \"dtadoc\": \"2026-06-15\",\n    \"valor_total\": 100.00,\n    \"observacao\": \"Pedido teste API\"\n  },\n  \"vendas2\": [\n    {\n      \"cod_produto\": 2707,\n      \"quantidade\": 1,\n      \"preco\": 100.00,\n      \"desconto\": 0,\n      \"sub_total\": 100.00\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/pedido",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pedido"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Enviar Pedidos Digitados",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codRepresentante\": \"{{codRepresentante}}\",\n  \"pedidos\": [\n    {\n      \"vendas1\": {\n        \"cod_cliente\": 15276,\n        \"cod_representante\": {{codRepresentante}},\n        \"dtadoc\": \"2026-06-15\",\n        \"valor_total\": 100.00,\n        \"observacao\": \"Pedido teste em lote\"\n      },\n      \"vendas2\": [\n        {\n          \"cod_produto\": 2707,\n          \"quantidade\": 1,\n          \"preco\": 100.00,\n          \"desconto\": 0,\n          \"sub_total\": 100.00\n        }\n      ]\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/pedidos_digitados",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pedidos_digitados"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
