@@ -1,4 +1,4 @@
-unit WorbyRepRest.Database;
+﻿unit WorbyRepRest.Database;
 
 interface
 
@@ -2105,6 +2105,7 @@ begin
     LSql :=
       'select * from cliente ' +
       'where id_representante = :p0 ' +
+      '  and coalesce(cliente_bloqueado, ''N'') = ''N'' '+
       'order by cod_cliente ';
 
     if ALimit > 0 then
